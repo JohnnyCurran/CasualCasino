@@ -8,11 +8,15 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class BlackjackViewController: UIViewController {
+    
+    // MARK: 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        var card = CardStackView()
+        view.addSubview(card)
     }
 
     override func didReceiveMemoryWarning() {

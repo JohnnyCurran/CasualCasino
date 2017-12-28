@@ -65,8 +65,4 @@ class Card: NSObject {
         self.cardValue = cardValue
     }
     
-    init(suit: String, cardString: String) {
-        self.suit = suit
-        self.cardValue = Card.cards[cardString]!
-    }
 }

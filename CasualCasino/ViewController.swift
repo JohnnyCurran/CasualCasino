@@ -53,6 +53,10 @@ class ViewController: UIViewController {
         }
         wagerLabel.text = "Wager: 0"
         chipsLabel.text = "Chips: \(player.chipCount)"
+        for card in deck.deck {
+            print("Card: \(card.displayValue) of \(card.suit)")
+        }
+        print("total cards in deck: \(deck.deck.count)")
     }
     
     // MARK: Button Actions
@@ -128,8 +132,6 @@ class ViewController: UIViewController {
     // NOTE: Put a horizontal stack view on the view controller w/ an outlet so it's easy to add the vertical
     // card stack views to it
     func randomCardView(to stack: String) -> Card {
-        //let cardFrame = playerCardStackView.frame
-        //let cardView = UIStackView(frame: CGRect(x: cardFrame.origin.x, y: cardFrame.origin.y, width: 50, height: 100))
         let cardView = UIStackView()
         cardView.axis = .vertical
         cardView.alignment = .leading

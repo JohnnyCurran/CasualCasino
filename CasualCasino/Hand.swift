@@ -19,8 +19,11 @@ class Hand: UIStackView {
             for card in cards {
                 sum += card.numericValue
             }
-            if (sum > 21 && aces > 0) {
-                return sum - (aces * 2)
+            for _ in 0..<aces {
+                sum -= 10
+                if (sum < 21) {
+                    break
+                }
             }
             return sum
         }

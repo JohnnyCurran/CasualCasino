@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" systemVersion="17A277" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -9,16 +14,197 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="CasualCasino" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="agk-v2-u1C">
+                                <rect key="frame" x="106" y="318" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Hit"/>
+                                <connections>
+                                    <action selector="dealCard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WdA-xC-3iC"/>
+                                </connections>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="Lpc-fP-FkR" userLabel="Player Card Stack View" customClass="Hand" customModule="CasualCasino" customModuleProvider="target">
+                                <rect key="frame" x="16" y="547" width="343" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="amv-KT-Fxq"/>
+                                </constraints>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your Hand" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g4n-BA-hIi">
+                                <rect key="frame" x="16" y="518" width="136" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uyC-Fo-NhL">
+                                <rect key="frame" x="164" y="318" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Deal"/>
+                                <connections>
+                                    <action selector="dealFlop:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zzy-52-Tzy"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Wager to Begin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AJD-BG-JpE">
+                                <rect key="frame" x="16" y="267" width="343" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dealer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Quu-Tb-JBH">
+                                <rect key="frame" x="16" y="20" width="136" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="022-gU-6tU" userLabel="Dealer Card Stack View" customClass="Hand" customModule="CasualCasino" customModuleProvider="target">
+                                <rect key="frame" x="16" y="49" width="343" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Wager" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hrW-rr-LY7" userLabel="Wager Label">
+                                <rect key="frame" x="166" y="356.5" width="50" height="20.5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="b2T-8q-IDj" userLabel="Wager Buttons Stack View">
+                                <rect key="frame" x="72" y="385" width="230" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TXZ-yf-UU8">
+                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="9MT-lb-3VI"/>
+                                        </constraints>
+                                        <state key="normal" title="5"/>
+                                        <connections>
+                                            <action selector="increaseWager:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mTg-Rg-8Yc"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZuW-Uj-FIr">
+                                        <rect key="frame" x="50" y="0.0" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="rj3-VS-vVp"/>
+                                        </constraints>
+                                        <state key="normal" title="10"/>
+                                        <connections>
+                                            <action selector="increaseWager:" destination="BYZ-38-t0r" eventType="touchUpInside" id="d80-dh-aTL"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ZK-w0-voB">
+                                        <rect key="frame" x="100" y="0.0" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="DLm-Tk-b94"/>
+                                        </constraints>
+                                        <state key="normal" title="25"/>
+                                        <connections>
+                                            <action selector="increaseWager:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jbr-Hn-Fh3"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ur3-k8-BzV">
+                                        <rect key="frame" x="150" y="0.0" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="alf-Rk-90S"/>
+                                        </constraints>
+                                        <state key="normal" title="50"/>
+                                        <connections>
+                                            <action selector="increaseWager:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aej-Pv-0aK"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QGY-8f-2Bz">
+                                        <rect key="frame" x="200" y="0.0" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="gnU-zy-AwF"/>
+                                        </constraints>
+                                        <state key="normal" title="100"/>
+                                        <connections>
+                                            <action selector="increaseWager:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Diz-Ov-yVB"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="ZuW-Uj-FIr" firstAttribute="leading" secondItem="TXZ-yf-UU8" secondAttribute="trailing" constant="20" id="36l-qs-LdE"/>
+                                    <constraint firstItem="ur3-k8-BzV" firstAttribute="leading" secondItem="7ZK-w0-voB" secondAttribute="trailing" constant="20" id="3Ke-HO-W1M"/>
+                                    <constraint firstItem="ZuW-Uj-FIr" firstAttribute="leading" secondItem="TXZ-yf-UU8" secondAttribute="trailing" constant="20" id="4E2-rp-s6C"/>
+                                    <constraint firstItem="ur3-k8-BzV" firstAttribute="leading" secondItem="7ZK-w0-voB" secondAttribute="trailing" constant="20" id="G1E-aU-7dw"/>
+                                    <constraint firstItem="QGY-8f-2Bz" firstAttribute="leading" secondItem="ur3-k8-BzV" secondAttribute="trailing" constant="20" id="QzY-mB-fbB"/>
+                                    <constraint firstAttribute="trailing" secondItem="QGY-8f-2Bz" secondAttribute="trailing" id="SWY-Yb-H0e"/>
+                                    <constraint firstItem="QGY-8f-2Bz" firstAttribute="leading" secondItem="ur3-k8-BzV" secondAttribute="trailing" constant="20" id="VSB-z3-ujc"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="230" id="ek4-Oc-pbw"/>
+                                    <constraint firstItem="7ZK-w0-voB" firstAttribute="leading" secondItem="ZuW-Uj-FIr" secondAttribute="trailing" constant="20" id="r97-vz-7PJ"/>
+                                    <constraint firstItem="7ZK-w0-voB" firstAttribute="leading" secondItem="ZuW-Uj-FIr" secondAttribute="trailing" constant="20" id="yMw-Oa-8xk"/>
+                                </constraints>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Wager: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPa-N0-vQV">
+                                <rect key="frame" x="16" y="489" width="136" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Chips:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0jH-Xa-qep">
+                                <rect key="frame" x="16" y="423" width="136" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="clR-Sr-Gt9">
+                                <rect key="frame" x="218" y="318" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Stand"/>
+                                <connections>
+                                    <action selector="playerStand:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Vje-qL-jWo"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mfp-mf-ItA">
+                                <rect key="frame" x="106" y="296" width="158" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="New Game"/>
+                                <connections>
+                                    <action selector="newGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="exV-Td-hXY"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="b2T-8q-IDj" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="72" id="1BD-qo-a3J"/>
+                            <constraint firstItem="b2T-8q-IDj" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="385" id="8se-oU-COB"/>
+                            <constraint firstItem="Lpc-fP-FkR" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="OCJ-fu-tMz"/>
+                            <constraint firstItem="Lpc-fP-FkR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="foY-dM-uDJ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Lpc-fP-FkR" secondAttribute="bottom" constant="20" id="k6D-sv-dzE"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="actionStateLabel" destination="AJD-BG-JpE" id="rye-KJ-1um"/>
+                        <outlet property="chipsLabel" destination="0jH-Xa-qep" id="GdZ-bn-BGM"/>
+                        <outlet property="dealButton" destination="uyC-Fo-NhL" id="n6V-2s-wEM"/>
+                        <outlet property="dealerCardStackView" destination="022-gU-6tU" id="XFd-tg-dA2"/>
+                        <outlet property="dealerLabel" destination="Quu-Tb-JBH" id="oJh-eE-UJT"/>
+                        <outlet property="handValueLabel" destination="g4n-BA-hIi" id="Otw-ma-pGs"/>
+                        <outlet property="hitButton" destination="agk-v2-u1C" id="fi7-Qi-vZR"/>
+                        <outlet property="newGameButton" destination="mfp-mf-ItA" id="Dmt-YS-gvI"/>
+                        <outlet property="playerCardStackView" destination="Lpc-fP-FkR" id="SHH-C1-ezB"/>
+                        <outlet property="standButton" destination="clR-Sr-Gt9" id="SaN-LH-Pgc"/>
+                        <outlet property="wagerButtonsStackView" destination="b2T-8q-IDj" id="99F-cR-bxU"/>
+                        <outlet property="wagerFifty" destination="ur3-k8-BzV" id="CZL-1G-RYB"/>
+                        <outlet property="wagerFive" destination="TXZ-yf-UU8" id="mQH-8V-Js5"/>
+                        <outlet property="wagerLabel" destination="QPa-N0-vQV" id="miD-aa-exe"/>
+                        <outlet property="wagerOneHundred" destination="QGY-8f-2Bz" id="ajV-be-3Sv"/>
+                        <outlet property="wagerStackViewLabel" destination="hrW-rr-LY7" id="gO1-cO-sN9"/>
+                        <outlet property="wagerTen" destination="ZuW-Uj-FIr" id="hIC-L8-CSG"/>
+                        <outlet property="wagerTwentyFive" destination="7ZK-w0-voB" id="kkc-jK-OAL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="121.88905547226388"/>
         </scene>
     </scenes>
 </document>

@@ -26,6 +26,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var wagerOneHundred: UIButton!
     @IBOutlet weak var wagerLabel: UILabel!
     @IBOutlet weak var chipsLabel: UILabel!
+    @IBOutlet weak var wagerStackViewLabel: UILabel!
+    @IBOutlet weak var dealerLabel: UILabel!
+    @IBOutlet weak var newGameButton: UIButton!
     
     //MARK: Properties
     var currentWager: UInt64 = 0
@@ -52,18 +55,48 @@ class ViewController: UIViewController {
         chipsLabel.text = "Chips: \(player.chipCount)"
     }
     
-    // MARK: Actions
+    // MARK: Button Actions
+    
+    // Player hits
     @IBAction func dealCard(_ sender: UIButton) {
-        // player hits - deal another card
         dealCard(to: "Player")
+        // Hide wagers
+        wagerButtonsStackView.isHidden = true
+        wagerStackViewLabel.isHidden = true
         // Check hand value and bust if > 21
         if (playerHand.handValue > 21) {
             actionStateLabel.text = "Busted!"
             dealButton.isHidden = true
+            endGame()
         }
     }
-    @IBAction func endPlayerTurn(_ sender: UIButton) {
-        // player stands - turn control over to dealer
+
+    // Increase wager amount
+    @IBAction func increaseWager(_ sender: UIButton) {
+        guard let wagerString = sender.currentTitle else {
+            os_log("Button wager amount could not be verified.", log: OSLog.default, type: .error)
+            return
+        }
+        let wagerAmount = UInt64(wagerString)!
+        // if player has enough chips to make the wager
+        if (player.chipCount >= wagerAmount) {
+            player.chipCount -= wagerAmount
+            currentWager += wagerAmount
+        }
+        wagerLabel.text = "Wager: \(currentWager)"
+        chipsLabel.text = "Chips: \(player.chipCount)"
+        if (hitButton.isHidden && currentWager > 0) {
+            dealButton.isHidden = false
+        }
+    }
+    
+    // Player stands
+    @IBAction func playerStand(_ sender: UIButton) {
+        hitButton.isHidden = true
+        while (dealerHand.handValue < 17) {
+            dealCard(to: "Dealer")
+        }
+        compareHands()
     }
     
     // Start the game
@@ -78,9 +111,15 @@ class ViewController: UIViewController {
         // Show action buttons
         hitButton.isHidden = false
         standButton.isHidden = false
-        wagerButtonsStackView.isHidden = false
         // Update state
         actionStateLabel.text = "Hit or Stand"
+        dealerLabel.text = "Dealer shows"
+    }
+    
+    // New game
+    @IBAction func newGame(_ sender: UIButton) {
+        resetView()
+        resetModel()
     }
     
     // MARK: Custom methods
@@ -88,8 +127,6 @@ class ViewController: UIViewController {
     // Create new card stack view
     // NOTE: Put a horizontal stack view on the view controller w/ an outlet so it's easy to add the vertical
     // card stack views to it
-    // TODO: Currently dealer cards are dealt to the player stack view
-    // Fix this
     func randomCardView(to stack: String) -> Card {
         //let cardFrame = playerCardStackView.frame
         //let cardView = UIStackView(frame: CGRect(x: cardFrame.origin.x, y: cardFrame.origin.y, width: 50, height: 100))
@@ -133,8 +170,8 @@ class ViewController: UIViewController {
         else if (hand == "Player") {
             playerHand.cards.append(card)
         }
-        // TODO: Check hand value and if it's over 21, bust
-        handValueLabel.text = "\(playerHand.handValue)"
+        handValueLabel.text = "Your hand: \(playerHand.handValue)"
+        dealerLabel.text = "Dealer shows: \(dealerHand.handValue)"
     }
     
     func cardFromDeck() -> Card {
@@ -142,23 +179,85 @@ class ViewController: UIViewController {
         return deck.deck.remove(at: cardIndex)
     }
     
-    
     // MARK: Game State Methods
-    @IBAction func increaseWager(_ sender: UIButton) {
-        guard let wagerString = sender.currentTitle else {
-            os_log("Button wager amount could not be verified.", log: OSLog.default, type: .error)
-            return
+    func compareHands() {
+        // Determine if player or dealer wins
+        if (playerHand.handValue > dealerHand.handValue || dealerHand.handValue > 21) {
+            playerWin()
         }
-        let wagerAmount = UInt64(wagerString)!
-        // if player has enough chips to make the wager
-        if (player.chipCount >= wagerAmount) {
-            player.chipCount -= wagerAmount
-            currentWager += wagerAmount
+        else if (playerHand.handValue < dealerHand.handValue) {
+            playerLose()
         }
-        wagerLabel.text = "Wager: \(currentWager)"
-        chipsLabel.text = "Chips: \(player.chipCount)"
+        else if (playerHand.handValue == dealerHand.handValue) {
+            gamePush()
+        }
+        endGame()
     }
-
+    
+    func playerLose() {
+        actionStateLabel.text = "Dealer wins!"
+    }
+    
+    func playerWin() {
+        actionStateLabel.text = "You win!"
+    }
+    
+    func gamePush() {
+        actionStateLabel.text = "Game push!"
+    }
+    
+    // Reset game view - wager to 0, hide wagers, hit/stand, show deal button, clear stack views
+    func resetView() {
+        wagerLabel.text = "Wager: 0"
+        for cardView in playerCardStackView.arrangedSubviews as [UIView] {
+            playerCardStackView.removeArrangedSubview(cardView)
+            cardView.removeFromSuperview()
+        }
+        for cardView in dealerCardStackView.arrangedSubviews as [UIView] {
+            dealerCardStackView.removeArrangedSubview(cardView)
+            cardView.removeFromSuperview()
+        }
+        actionStateLabel.text = "Wager an amount to start"
+        dealerLabel.text = "Dealer"
+        handValueLabel.text = "Your Hand"
+        dealButton.isHidden = true
+        hitButton.isHidden = true
+        standButton.isHidden = true
+        wagerStackViewLabel.isHidden = false
+        wagerButtonsStackView.isHidden = false
+        newGameButton.isHidden = true
+    }
+    
+    func endGame() {
+        // TODO: Reset views, models
+        // Show reset game thing
+        endGameView()
+    }
+    
+    // Set game state to end game - freeze actions and show 'reset' button
+    func endGameView() {
+        newGameButton.isHidden = false
+        hitButton.isHidden = true
+        standButton.isHidden = true
+        actionStateLabel.text = "\(actionStateLabel.text ?? "") Press New Game to Begin"
+    }
+    
+    // Empty hands and wagers
+    func resetModel() {
+        currentWager = 0
+        playerHand.cards = []
+        dealerHand.cards = []
+        if (player.chipCount == 0) {
+            // Show out of chips alert
+            let alert = UIAlertController(title: "Out of chips!", message: "Your chip balance has hit 0. 500 chips have been credited to your balance", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .`default`, handler: { _ in
+                NSLog("The \"Out of Chips\" alert occured.")
+            }))
+            self.present(alert, animated: true, completion: nil)
+            player.chipCount = 500
+            updateChipCount()
+        }
+    }
     
     // MARK: Player methods
     private func updateChipCount() {

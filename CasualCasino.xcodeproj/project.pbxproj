@@ -13,6 +13,11 @@
 		B2355BE71F914C64002A6CAB /* CasualCasino.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B2355BE51F914C64002A6CAB /* CasualCasino.xcdatamodeld */; };
 		B2355BE91F914C64002A6CAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2355BE81F914C64002A6CAB /* Assets.xcassets */; };
 		B2355BEC1F914C64002A6CAB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2355BEA1F914C64002A6CAB /* LaunchScreen.storyboard */; };
+		B252C5B31F97A9E0008E614F /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = B252C5B21F97A9E0008E614F /* Card.swift */; };
+		B278FF371FF437160094AFE5 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = B278FF361FF437160094AFE5 /* Player.swift */; };
+		B2A83C701FDA337A006F7EAA /* Hand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A83C6F1FDA337A006F7EAA /* Hand.swift */; };
+		B2A83C721FDA39B7006F7EAA /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A83C711FDA39B7006F7EAA /* Deck.swift */; };
+		B2F4BB071FF3149B0081C55A /* DealerHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F4BB061FF3149B0081C55A /* DealerHand.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +29,11 @@
 		B2355BE81F914C64002A6CAB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B2355BEB1F914C64002A6CAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B2355BED1F914C64002A6CAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B252C5B21F97A9E0008E614F /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		B278FF361FF437160094AFE5 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		B2A83C6F1FDA337A006F7EAA /* Hand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hand.swift; sourceTree = "<group>"; };
+		B2A83C711FDA39B7006F7EAA /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
+		B2F4BB061FF3149B0081C55A /* DealerHand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DealerHand.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +68,12 @@
 			children = (
 				B2355BDE1F914C64002A6CAB /* AppDelegate.swift */,
 				B2355BE01F914C64002A6CAB /* ViewController.swift */,
+				B2A83C711FDA39B7006F7EAA /* Deck.swift */,
 				B2355BE21F914C64002A6CAB /* Main.storyboard */,
+				B252C5B21F97A9E0008E614F /* Card.swift */,
+				B2A83C6F1FDA337A006F7EAA /* Hand.swift */,
+				B278FF361FF437160094AFE5 /* Player.swift */,
+				B2F4BB061FF3149B0081C55A /* DealerHand.swift */,
 				B2355BE81F914C64002A6CAB /* Assets.xcassets */,
 				B2355BEA1F914C64002A6CAB /* LaunchScreen.storyboard */,
 				B2355BED1F914C64002A6CAB /* Info.plist */,
@@ -139,9 +154,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2A83C721FDA39B7006F7EAA /* Deck.swift in Sources */,
 				B2355BE11F914C64002A6CAB /* ViewController.swift in Sources */,
+				B2A83C701FDA337A006F7EAA /* Hand.swift in Sources */,
+				B2F4BB071FF3149B0081C55A /* DealerHand.swift in Sources */,
+				B278FF371FF437160094AFE5 /* Player.swift in Sources */,
 				B2355BDF1F914C64002A6CAB /* AppDelegate.swift in Sources */,
 				B2355BE71F914C64002A6CAB /* CasualCasino.xcdatamodeld in Sources */,
+				B252C5B31F97A9E0008E614F /* Card.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,6 +301,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UWSXFAHZ4U;
 				INFOPLIST_FILE = CasualCasino/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.johncurran.CasualCasino;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -296,6 +317,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UWSXFAHZ4U;
 				INFOPLIST_FILE = CasualCasino/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.johncurran.CasualCasino;
 				PRODUCT_NAME = "$(TARGET_NAME)";

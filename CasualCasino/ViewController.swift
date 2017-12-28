@@ -12,7 +12,7 @@ import os.log
 class ViewController: UIViewController {
     // MARK: Outlets
     @IBOutlet weak var playerCardStackView: UIStackView!
-    @IBOutlet weak var dealerCardStackView: Hand!
+    @IBOutlet weak var dealerCardStackView: UIStackView!
     @IBOutlet weak var wagerButtonsStackView: UIStackView!
     @IBOutlet weak var handValueLabel: UILabel!
     @IBOutlet weak var hitButton: UIButton!
@@ -60,9 +60,6 @@ class ViewController: UIViewController {
     // Player hits
     @IBAction func dealCard(_ sender: UIButton) {
         dealCard(to: "Player")
-        // Hide wagers
-        wagerButtonsStackView.isHidden = true
-        wagerStackViewLabel.isHidden = true
         // Check hand value and bust if > 21
         if (playerHand.handValue > 21) {
             actionStateLabel.text = "Busted!"
@@ -114,6 +111,9 @@ class ViewController: UIViewController {
         // Update state
         actionStateLabel.text = "Hit or Stand"
         dealerLabel.text = "Dealer shows"
+        // Hide wager buttons
+        wagerButtonsStackView.isHidden = true
+        wagerStackViewLabel.isHidden = true
     }
     
     // New game
@@ -183,7 +183,7 @@ class ViewController: UIViewController {
     func compareHands() {
         // Determine if player or dealer wins
         if (playerHand.handValue > dealerHand.handValue || dealerHand.handValue > 21) {
-            actionStateLabel.text = "You win!"
+            actionStateLabel.text = "You win \(2 * currentWager) chips!"
             endGame(result: "win")
         }
         else if (playerHand.handValue < dealerHand.handValue) {
@@ -240,7 +240,7 @@ class ViewController: UIViewController {
         newGameButton.isHidden = false
         hitButton.isHidden = true
         standButton.isHidden = true
-        actionStateLabel.text = "\(actionStateLabel.text ?? "") Press New Game to Begin"
+        actionStateLabel.text = "\(actionStateLabel.text ?? "") Press new game to play again"
     }
     
     // Empty hands and wagers

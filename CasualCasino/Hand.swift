@@ -35,7 +35,7 @@ class Hand: UIStackView {
         }
         return aceCount
     }
-
+    
     override init(frame: CGRect) {
         self.cards = []
         super.init(frame: frame)
@@ -45,8 +45,5 @@ class Hand: UIStackView {
         self.cards = []
         super.init(coder: coder)
     }
-    
-    override func didAddSubview(_ subview: UIView) {
-        print("Subview Added!")
-    }
+
 }

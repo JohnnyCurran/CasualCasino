@@ -67,7 +67,7 @@ class ViewController: UIViewController {
         if (playerHand.handValue > 21) {
             actionStateLabel.text = "Busted!"
             dealButton.isHidden = true
-            endGame()
+            endGame(result: "lose")
         }
     }
 
@@ -183,29 +183,19 @@ class ViewController: UIViewController {
     func compareHands() {
         // Determine if player or dealer wins
         if (playerHand.handValue > dealerHand.handValue || dealerHand.handValue > 21) {
-            playerWin()
+            actionStateLabel.text = "You win!"
+            endGame(result: "win")
         }
         else if (playerHand.handValue < dealerHand.handValue) {
-            playerLose()
+            actionStateLabel.text = "Dealer wins!"
+            endGame(result: "false")
         }
         else if (playerHand.handValue == dealerHand.handValue) {
-            gamePush()
+            actionStateLabel.text = "Game push!"
+            endGame(result: "push")
         }
-        endGame()
     }
-    
-    func playerLose() {
-        actionStateLabel.text = "Dealer wins!"
-    }
-    
-    func playerWin() {
-        actionStateLabel.text = "You win!"
-    }
-    
-    func gamePush() {
-        actionStateLabel.text = "Game push!"
-    }
-    
+
     // Reset game view - wager to 0, hide wagers, hit/stand, show deal button, clear stack views
     func resetView() {
         wagerLabel.text = "Wager: 0"
@@ -228,14 +218,25 @@ class ViewController: UIViewController {
         newGameButton.isHidden = true
     }
     
-    func endGame() {
+    func endGame(result: String) {
         // TODO: Reset views, models
+        // TODO: Credit or Debit chips from player
+        // False case unnecessary because wager gets reset to 0 and chips are already removed from balance
+        if (result == "win") {
+            player.chipCount += 2 * currentWager
+        }
+        else if (result == "push") {
+            player.chipCount += currentWager
+        }
+        // if loss, no action. chips already removed from chip balance
         // Show reset game thing
+        resetModel()
         endGameView()
     }
     
     // Set game state to end game - freeze actions and show 'reset' button
     func endGameView() {
+        chipsLabel.text = "Chips: \(player.chipCount)"
         newGameButton.isHidden = false
         hitButton.isHidden = true
         standButton.isHidden = true
@@ -255,8 +256,9 @@ class ViewController: UIViewController {
             }))
             self.present(alert, animated: true, completion: nil)
             player.chipCount = 500
-            updateChipCount()
+            chipsLabel.text = "Chips: 500"
         }
+        updateChipCount()
     }
     
     // MARK: Player methods

@@ -65,7 +65,8 @@ class ViewController: UIViewController {
     @IBAction func dealCard(_ sender: UIButton) {
         dealCard(to: "Player")
         // Check hand value and bust if > 21
-        if (playerHand.handValue > 21) {
+        let (lowSum, _) = playerHand.handValue
+        if (lowSum > 21) {
             actionStateLabel.text = "Busted!"
             dealButton.isHidden = true
             endGame(result: "lose")
@@ -93,11 +94,17 @@ class ViewController: UIViewController {
     
     // Player stands
     @IBAction func playerStand(_ sender: UIButton) {
+        let (lowSum, _) = dealerHand.handValue
         hitButton.isHidden = true
-        while (dealerHand.handValue < 17) {
+        // to hit on soft 17, use lowSum
+        // to stand on soft 17, use highSum
+        if (lowSum < 17) {
             dealCard(to: "Dealer")
+            playerStand(sender)
         }
-        compareHands()
+        else {
+            compareHands()
+        }
     }
     
     // Start the game
@@ -114,7 +121,8 @@ class ViewController: UIViewController {
         standButton.isHidden = false
         // Update state
         actionStateLabel.text = "Hit or Stand"
-        dealerLabel.text = "Dealer shows"
+        let (_, dealerHighSum) = dealerHand.handValue
+        dealerLabel.text = "Dealer shows \(dealerHighSum)"
         // Hide wager buttons
         wagerButtonsStackView.isHidden = true
         wagerStackViewLabel.isHidden = true
@@ -134,7 +142,8 @@ class ViewController: UIViewController {
     func randomCardView(to stack: String) -> Card {
         let cardView = UIStackView()
         cardView.axis = .vertical
-        cardView.alignment = .leading
+        //cardView.alignment = .leading
+        cardView.alignment = .center
         cardView.distribution = .fillProportionally
         cardView.contentMode = .center
         
@@ -172,10 +181,30 @@ class ViewController: UIViewController {
         else if (hand == "Player") {
             playerHand.cards.append(card)
         }
-        handValueLabel.text = "Your hand: \(playerHand.handValue)"
-        dealerLabel.text = "Dealer shows: \(dealerHand.handValue)"
+        let (lowSum, highSum) = playerHand.handValue
+        if (playerHand.numAces > 0 && highSum < 21) {
+            handValueLabel.text = "Your hand: \(lowSum) or \(highSum)"
+        }
+        else if (playerHand.numAces > 0 && highSum > 21) {
+            handValueLabel.text = "Your hand: \(lowSum)"
+        }
+        else if (playerHand.numAces == 0) {
+            handValueLabel.text = "Your hand: \(highSum)"
+        }
+        else {
+            os_log("Something has gone horribly wrong. Ace counts & hand value labels failing.", log: OSLog.default, type: .error)
+        }
+        let (dealerLowSum, dealerHighSum) = dealerHand.handValue
+        if (dealerHighSum > 21) {
+            dealerLabel.text = "Dealer shows: \(dealerLowSum)"
+        }
+        else {
+            dealerLabel.text = "Dealer shows: \(dealerHighSum)"
+        }
     }
     
+    // TODO: If player plays too long, game will crash b/c deck runs out of cards
+    // Fix this issue
     func cardFromDeck() -> Card {
         let cardIndex: Int = Int(arc4random_uniform(UInt32(deck.deck.count - 1)))
         return deck.deck.remove(at: cardIndex)
@@ -183,16 +212,36 @@ class ViewController: UIViewController {
     
     // MARK: Game State Methods
     func compareHands() {
+        var playerHandValue: Int
+        var dealerHandValue: Int
+        let (playerLowSum, playerHighSum) = playerHand.handValue
+        let (dealerLowSum, dealerHighSum) = dealerHand.handValue
+        
+        // Take highest hand values that are not over 21
+        if (playerHighSum > 21) {
+            playerHandValue = playerLowSum
+        }
+        else {
+            playerHandValue = playerHighSum
+        }
+        if (dealerHighSum > 21) {
+            dealerHandValue = dealerLowSum
+        }
+        else {
+            dealerHandValue = dealerHighSum
+        }
+        // Player wins
         // Determine if player or dealer wins
-        if (playerHand.handValue > dealerHand.handValue || dealerHand.handValue > 21) {
+        print("Player hand value: \(playerHandValue) \n Dealer hand value: \(dealerHandValue)")
+        if (playerHandValue > dealerHandValue || dealerHandValue > 21) {
             actionStateLabel.text = "You win \(2 * currentWager) chips!"
             endGame(result: "win")
         }
-        else if (playerHand.handValue < dealerHand.handValue) {
+        else if (playerHandValue < dealerHandValue) {
             actionStateLabel.text = "Dealer wins!"
             endGame(result: "false")
         }
-        else if (playerHand.handValue == dealerHand.handValue) {
+        else if (playerHandValue == dealerHandValue) {
             actionStateLabel.text = "Game push!"
             endGame(result: "push")
         }

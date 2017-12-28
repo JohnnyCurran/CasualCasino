@@ -12,31 +12,34 @@ class Hand: UIStackView {
     // MARK: Properties
     var cards: [Card]
 
-    var handValue: Int {
+    var handValue: (Int, Int) {
         get {
-            var sum: Int = 0
-            let aces = numAces()
+            var lowSum: Int = 0
+            var highSum: Int = 0
             for card in cards {
-                sum += card.numericValue
+                highSum += card.numericValue
             }
-            for _ in 0..<aces {
-                sum -= 10
-                if (sum < 21) {
+            lowSum = highSum
+            for _ in 0..<numAces {
+                lowSum -= 10
+                if (lowSum < 21) {
                     break
                 }
             }
-            return sum
+            return (lowSum, highSum)
         }
     }
     
-    func numAces() -> Int {
-        var aceCount: Int = 0
-        for card in cards {
-            if (card.numericValue == 11) {
-                aceCount += 1
+    var numAces: Int {
+        get {
+            var aceCount: Int = 0
+            for card in cards {
+                if (card.numericValue == 11) {
+                    aceCount += 1
+                }
             }
+            return aceCount
         }
-        return aceCount
     }
     
     override init(frame: CGRect) {

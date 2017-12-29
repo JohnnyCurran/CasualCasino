@@ -9,6 +9,14 @@
 import UIKit
 import os.log
 
+// TODO: Make Wager label on top of stack view buttons responsible for showing current wager amount
+// TODO: Add ability to double down
+// TODO: Fix Stack view layout issue
+// TODO: (Stretch) Space out dealer obtaining cards. Don't make games end so suddenly
+// TODO: Move the dealers cards down further from top of screen
+// TODO: Fix issue where deck runs out of cards (lol)
+// TODO: Check for blackjack off the flop
+
 class ViewController: UIViewController {
     // MARK: Outlets
     @IBOutlet weak var playerCardStackView: UIStackView!
@@ -54,9 +62,8 @@ class ViewController: UIViewController {
         wagerLabel.text = "Wager: 0"
         chipsLabel.text = "Chips: \(player.chipCount)"
         for card in deck.deck {
-            print("Card: \(card.displayValue) of \(card.suit)")
+            print("\(card.displayValue) of \(card.suit)")
         }
-        print("total cards in deck: \(deck.deck.count)")
     }
     
     // MARK: Button Actions

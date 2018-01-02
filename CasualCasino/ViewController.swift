@@ -42,7 +42,7 @@ class ViewController: UIViewController {
     var currentWager: UInt64 = 0
     var playerHand: Hand = Hand()
     var dealerHand: Hand = Hand()
-    var deck: Deck = Deck()
+    var deck: Deck = Deck(numDecks: 10)
     var player: Player = Player(chipCount: 500)
 
     //MARK: Life Cycle
@@ -189,7 +189,7 @@ class ViewController: UIViewController {
             playerHand.cards.append(card)
         }
         let (lowSum, highSum) = playerHand.handValue
-        if (playerHand.numAces > 0 && highSum < 21) {
+        if (playerHand.numAces > 0 && highSum <= 21) {
             handValueLabel.text = "Your hand: \(lowSum) or \(highSum)"
         }
         else if (playerHand.numAces > 0 && highSum > 21) {

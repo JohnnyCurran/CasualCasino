@@ -22,9 +22,6 @@ class Hand: UIStackView {
             lowSum = highSum
             for _ in 0..<numAces {
                 lowSum -= 10
-                if (lowSum <= 21) {
-                    break
-                }
             }
             return (lowSum, highSum)
         }

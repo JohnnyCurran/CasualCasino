@@ -30,6 +30,7 @@ class Card: NSObject {
             }
         }
     }
+    // display String
     var displayValue: String {
         get {
             switch(cardValue) {

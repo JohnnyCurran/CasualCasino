@@ -16,6 +16,9 @@ import os.log
 // TODO: Move the dealers cards down further from top of screen
 // TODO: Fix issue where deck runs out of cards (lol)
 // TODO: Check for blackjack off the flop
+// TODO: Implement doubling down & splits
+// TODO: Re-factor card view method to create a view given a card object
+// TODO: Re-factor deal card method to produce a card object instead of calling randomCardView()
 
 class ViewController: UIViewController {
     // MARK: Outlets
@@ -76,6 +79,7 @@ class ViewController: UIViewController {
         if (lowSum > 21) {
             actionStateLabel.text = "Busted!"
             dealButton.isHidden = true
+            showHiddenCard()
             endGame(result: "lose")
         }
     }
@@ -101,10 +105,14 @@ class ViewController: UIViewController {
     
     // Player stands
     @IBAction func playerStand(_ sender: UIButton) {
-        let (lowSum, _) = dealerHand.handValue
+        // Reveal hidden card
+        showHiddenCard()
+        let (lowSum, highSum) = dealerHand.handValue
         hitButton.isHidden = true
         // to hit on soft 17, use lowSum
         // to stand on soft 17, use highSum
+        print("Dealer high sum: \(highSum)")
+        print("Dealer low sum: \(lowSum)")
         if (lowSum < 17) {
             dealCard(to: "Dealer")
             playerStand(sender)
@@ -121,6 +129,7 @@ class ViewController: UIViewController {
         dealCard(to: "Player")
         // Deal dealer card
         dealCard(to: "Dealer")
+        dealCard(to: "Dealer", hidden: true)
         // Hide deal button
         dealButton.isHidden = true
         // Show action buttons
@@ -128,11 +137,13 @@ class ViewController: UIViewController {
         standButton.isHidden = false
         // Update state
         actionStateLabel.text = "Hit or Stand"
-        let (_, dealerHighSum) = dealerHand.handValue
-        dealerLabel.text = "Dealer shows \(dealerHighSum)"
+        let dealerShows = dealerHand.cards[0].numericValue
+        dealerLabel.text = "Dealer shows \(dealerShows)"
         // Hide wager buttons
         wagerButtonsStackView.isHidden = true
         wagerStackViewLabel.isHidden = true
+        
+        checkBlackjack()
     }
     
     // New game
@@ -142,51 +153,72 @@ class ViewController: UIViewController {
     }
     
     // MARK: Custom methods
+    func checkBlackjack() {
+        let (_, playerValue) = playerHand.handValue
+        let (_, dealerValue) = dealerHand.handValue
+        
+        if (playerValue == 21 && dealerValue == 21) {
+            showHiddenCard()
+            endGame(result: "push")
+        }
+        else if (playerValue == 21) {
+            showHiddenCard()
+            endGame(result: "playerBlackjack")
+        }
+        else if (dealerValue == 21) {
+            showHiddenCard()
+            endGame(result: "dealerBlackjack")
+        }
+    }
     
-    // Create new card stack view
-    // NOTE: Put a horizontal stack view on the view controller w/ an outlet so it's easy to add the vertical
-    // card stack views to it
-    func randomCardView(to stack: String) -> Card {
+    // Replace hidden card with proper value
+    func showHiddenCard() {
+        // Replace arranged subview with new subview
+        let unhiddenCard = dealerHand.cards[1]
+        let unhiddenCardView = cardStackView(card: unhiddenCard)
+        let hiddenCardView = dealerCardStackView.arrangedSubviews[1]
+        dealerCardStackView.removeArrangedSubview(hiddenCardView)
+        hiddenCardView.removeFromSuperview()
+        dealerCardStackView.addArrangedSubview(unhiddenCardView)
+    }
+    
+    // Create a stack view from a card object
+    func cardStackView(card: Card, hidden: Bool = false) -> UIStackView {
         let cardView = UIStackView()
         cardView.axis = .vertical
-        //cardView.alignment = .leading
         cardView.alignment = .center
         cardView.distribution = .fillProportionally
         cardView.contentMode = .center
         
-        let card = cardFromDeck()
-        // Display labels for card
         let cardValue = UILabel()
-        cardValue.text = card.displayValue
+        cardValue.text = hidden == false ? card.displayValue : "??"
         cardValue.textAlignment = .center
         
         let cardSuit = UILabel()
-        cardSuit.text = card.suit
+        cardSuit.text = hidden == false ? card.suit : "??"
         cardSuit.textAlignment = .center
         
         cardView.addArrangedSubview(cardValue)
         cardView.addArrangedSubview(cardSuit)
         
-        // Add card View to horizontal stack view
-        if (stack == "Player") {
-            playerCardStackView.addArrangedSubview(cardView)
-        }
-        else {
-            dealerCardStackView.addArrangedSubview(cardView)
-        }
-        
-        return card
+        return cardView
     }
-
+    
+    // Create new card stack view
+    
     // MARK: Card Methods
-    func dealCard(to hand: String) {
-        let card = randomCardView(to: hand)
+    func dealCard(to hand: String, hidden: Bool = false) {
+        //let card = randomCardView(to: hand, hidden: hidden)
+        let card = cardFromDeck()
+        let cardView = cardStackView(card: card, hidden: hidden)
         // Add dealt card to correct hand
         if (hand == "Dealer") {
             dealerHand.cards.append(card)
+            dealerCardStackView.addArrangedSubview(cardView)
         }
         else if (hand == "Player") {
             playerHand.cards.append(card)
+            playerCardStackView.addArrangedSubview(cardView)
         }
         let (lowSum, highSum) = playerHand.handValue
         if (playerHand.numAces > 0 && highSum <= 21) {
@@ -238,7 +270,6 @@ class ViewController: UIViewController {
             dealerHandValue = dealerHighSum
         }
         // Player wins
-        // Determine if player or dealer wins
         print("Player hand value: \(playerHandValue) \n Dealer hand value: \(dealerHandValue)")
         if (playerHandValue > dealerHandValue || dealerHandValue > 21) {
             actionStateLabel.text = "You win \(2 * currentWager) chips!"
@@ -277,23 +308,39 @@ class ViewController: UIViewController {
     }
     
     func endGame(result: String) {
-        // TODO: Reset views, models
-        // TODO: Credit or Debit chips from player
-        // False case unnecessary because wager gets reset to 0 and chips are already removed from balance
-        if (result == "win") {
+        // TODO: implement Blackjack on flops
+        switch (result) {
+        case "win":
             player.chipCount += 2 * currentWager
-        }
-        else if (result == "push") {
+        
+        case "push":
             player.chipCount += currentWager
+        case "playerBlackjack":
+            player.chipCount += currentWager
+            actionStateLabel.text = "Blackjack!"
+            print("Player hit 21 on flop")
+        case "dealerBlackjack":
+            actionStateLabel.text = "Dealer hit blackjack! Unlucky!"
+            print("dealer hit 21 on flop")
+        default:
+            print("loss")
         }
-        // if loss, no action. chips already removed from chip balance
         // Show reset game thing
-        resetModel()
         endGameView()
+        resetModel()
     }
     
     // Set game state to end game - freeze actions and show 'reset' button
     func endGameView() {
+        let (dealerLowSum, dealerHighSum) = dealerHand.handValue
+        var dealerSum: Int
+        if (dealerHighSum > 21) {
+            dealerSum = dealerLowSum
+        }
+        else {
+            dealerSum = dealerHighSum
+        }
+        dealerLabel.text = "Dealer has \(dealerSum)"
         chipsLabel.text = "Chips: \(player.chipCount)"
         newGameButton.isHidden = false
         hitButton.isHidden = true

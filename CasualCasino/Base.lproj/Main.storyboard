@@ -52,26 +52,15 @@
                                     <action selector="dealFlop:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zzy-52-Tzy"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Wager to Begin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AJD-BG-JpE">
-                                <rect key="frame" x="16" y="239" width="343" height="49"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Wager to Begin" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AJD-BG-JpE">
+                                <rect key="frame" x="16" y="213" width="343" height="75"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="0.99998795986175537" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="highlightedColor" red="0.41145865821369931" green="1" blue="0.33966661480960458" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dealer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Quu-Tb-JBH">
-                                <rect key="frame" x="16" y="20" width="136" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="0.99998795986175537" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <color key="highlightedColor" red="0.41145865821369931" green="1" blue="0.33966661480960458" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="022-gU-6tU" userLabel="Dealer Card Stack View" customClass="Hand" customModule="CasualCasino" customModuleProvider="target">
-                                <rect key="frame" x="16" y="49" width="343" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Wager" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hrW-rr-LY7" userLabel="Wager Label">
-                                <rect key="frame" x="166" y="357" width="136" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Wager" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hrW-rr-LY7" userLabel="Wager Label">
+                                <rect key="frame" x="72" y="357" width="230" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="0.99998795986175537" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -154,13 +143,6 @@
                                     <constraint firstItem="7ZK-w0-voB" firstAttribute="leading" secondItem="ZuW-Uj-FIr" secondAttribute="trailing" constant="20" id="yMw-Oa-8xk"/>
                                 </constraints>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Wager: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPa-N0-vQV">
-                                <rect key="frame" x="16" y="489" width="136" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="0.99998795986175537" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <color key="highlightedColor" red="0.41145865821369931" green="1" blue="0.33966661480960458" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Chips:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0jH-Xa-qep">
                                 <rect key="frame" x="16" y="423" width="136" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -188,6 +170,17 @@
                                     <action selector="newGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="exV-Td-hXY"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dealer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Quu-Tb-JBH">
+                                <rect key="frame" x="16" y="76" width="136" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.99998795986175537" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="highlightedColor" red="0.41145865821369931" green="1" blue="0.33966661480960458" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="022-gU-6tU" userLabel="Dealer Card Stack View" customClass="Hand" customModule="CasualCasino" customModuleProvider="target">
+                                <rect key="frame" x="16" y="105" width="343" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.25928524375573853" green="0.6301611075129534" blue="0.21404469017359617" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
@@ -213,7 +206,6 @@
                         <outlet property="wagerButtonsStackView" destination="b2T-8q-IDj" id="99F-cR-bxU"/>
                         <outlet property="wagerFifty" destination="ur3-k8-BzV" id="CZL-1G-RYB"/>
                         <outlet property="wagerFive" destination="TXZ-yf-UU8" id="mQH-8V-Js5"/>
-                        <outlet property="wagerLabel" destination="QPa-N0-vQV" id="miD-aa-exe"/>
                         <outlet property="wagerOneHundred" destination="QGY-8f-2Bz" id="ajV-be-3Sv"/>
                         <outlet property="wagerStackViewLabel" destination="hrW-rr-LY7" id="gO1-cO-sN9"/>
                         <outlet property="wagerTen" destination="ZuW-Uj-FIr" id="hIC-L8-CSG"/>

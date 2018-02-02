@@ -10,7 +10,6 @@ import UIKit
 import os.log
 
 // TODO: Make Wager label on top of stack view buttons responsible for showing current wager amount
-// TODO: Add ability to double down
 // TODO: Fix Stack view layout issue
 // TODO: (Stretch) Space out dealer obtaining cards. Don't make games end so suddenly
 // TODO: Move the dealers cards down further from top of screen
@@ -19,6 +18,7 @@ import os.log
 // TODO: Implement doubling down & splits
 // TODO: Re-factor card view method to create a view given a card object
 // TODO: Re-factor deal card method to produce a card object instead of calling randomCardView()
+// TODO: Keep track of player statistics (wins/losses/total wagered/total lost)
 
 class ViewController: UIViewController {
     // MARK: Outlets
@@ -35,7 +35,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var wagerTwentyFive: UIButton!
     @IBOutlet weak var wagerFifty: UIButton!
     @IBOutlet weak var wagerOneHundred: UIButton!
-    @IBOutlet weak var wagerLabel: UILabel!
     @IBOutlet weak var chipsLabel: UILabel!
     @IBOutlet weak var wagerStackViewLabel: UILabel!
     @IBOutlet weak var dealerLabel: UILabel!
@@ -62,11 +61,8 @@ class ViewController: UIViewController {
                 player.chipCount = 500
             }
         }
-        wagerLabel.text = "Wager: 0"
+        wagerStackViewLabel.text = "Wager: 0"
         chipsLabel.text = "Chips: \(player.chipCount)"
-        for card in deck.deck {
-            print("\(card.displayValue) of \(card.suit)")
-        }
     }
     
     // MARK: Button Actions
@@ -96,7 +92,7 @@ class ViewController: UIViewController {
             player.chipCount -= wagerAmount
             currentWager += wagerAmount
         }
-        wagerLabel.text = "Wager: \(currentWager)"
+        wagerStackViewLabel.text = "Wager: \(currentWager)"
         chipsLabel.text = "Chips: \(player.chipCount)"
         if (hitButton.isHidden && currentWager > 0) {
             dealButton.isHidden = false
@@ -109,17 +105,24 @@ class ViewController: UIViewController {
         showHiddenCard()
         let (lowSum, highSum) = dealerHand.handValue
         hitButton.isHidden = true
+        var dealerSum: Int = lowSum
         // to hit on soft 17, use lowSum
         // to stand on soft 17, use highSum
         print("Dealer high sum: \(highSum)")
         print("Dealer low sum: \(lowSum)")
-        if (lowSum < 17) {
+        while (dealerSum < 17) {
+            dealCard(to: "Dealer")
+            let (sum, _) = dealerHand.handValue
+            dealerSum = sum
+        }
+        /*if (lowSum < 17) {
             dealCard(to: "Dealer")
             playerStand(sender)
         }
         else {
             compareHands()
-        }
+        }*/
+        compareHands()
     }
     
     // Start the game
@@ -141,8 +144,7 @@ class ViewController: UIViewController {
         dealerLabel.text = "Dealer shows \(dealerShows)"
         // Hide wager buttons
         wagerButtonsStackView.isHidden = true
-        wagerStackViewLabel.isHidden = true
-        
+
         checkBlackjack()
     }
     
@@ -210,43 +212,49 @@ class ViewController: UIViewController {
     func dealCard(to hand: String, hidden: Bool = false) {
         //let card = randomCardView(to: hand, hidden: hidden)
         let card = cardFromDeck()
+        //let card = deck.deal()
         let cardView = cardStackView(card: card, hidden: hidden)
         // Add dealt card to correct hand
         if (hand == "Dealer") {
             dealerHand.cards.append(card)
             dealerCardStackView.addArrangedSubview(cardView)
+            let (dealerLowSum, dealerHighSum) = dealerHand.handValue
+            if (dealerHighSum > 21) {
+                dealerLabel.text = "Dealer shows \(dealerLowSum)"
+            }
+            else {
+                dealerLabel.text = "Dealer shows \(dealerHighSum)"
+            }
         }
         else if (hand == "Player") {
             playerHand.cards.append(card)
             playerCardStackView.addArrangedSubview(cardView)
-        }
-        let (lowSum, highSum) = playerHand.handValue
-        if (playerHand.numAces > 0 && highSum <= 21) {
-            handValueLabel.text = "Your hand: \(lowSum) or \(highSum)"
-        }
-        else if (playerHand.numAces > 0 && highSum > 21) {
-            handValueLabel.text = "Your hand: \(lowSum)"
-        }
-        else if (playerHand.numAces == 0) {
-            handValueLabel.text = "Your hand: \(highSum)"
-        }
-        else {
-            os_log("Something has gone horribly wrong. Ace counts & hand value labels failing.", log: OSLog.default, type: .error)
-        }
-        let (dealerLowSum, dealerHighSum) = dealerHand.handValue
-        if (dealerHighSum > 21) {
-            dealerLabel.text = "Dealer shows: \(dealerLowSum)"
-        }
-        else {
-            dealerLabel.text = "Dealer shows: \(dealerHighSum)"
+            let (lowSum, highSum) = playerHand.handValue
+            if (playerHand.numAces > 0 && highSum <= 21) {
+                handValueLabel.text = "Your hand: \(lowSum) or \(highSum)"
+            }
+            else if (playerHand.numAces > 0 && highSum > 21) {
+                handValueLabel.text = "Your hand: \(lowSum)"
+            }
+            else if (playerHand.numAces == 0) {
+                handValueLabel.text = "Your hand: \(highSum)"
+            }
+            else {
+                os_log("Something has gone horribly wrong. Ace counts & hand value labels failing.", log: OSLog.default, type: .error)
+            }
         }
     }
     
-    // TODO: If player plays too long, game will crash b/c deck runs out of cards
     // Fix this issue
     func cardFromDeck() -> Card {
         let cardIndex: Int = Int(arc4random_uniform(UInt32(deck.deck.count - 1)))
-        return deck.deck.remove(at: cardIndex)
+        if (deck.deck.count < 52) {
+            deck = Deck(numDecks: 5)
+            os_log("New deck in play", log: OSLog.default, type: .default)
+        }
+        let cardDealt = deck.deck.remove(at: cardIndex)
+        print("Card dealt: \(cardDealt.displayValue) of \(cardDealt.suit)")
+        return cardDealt
     }
     
     // MARK: Game State Methods
@@ -287,7 +295,7 @@ class ViewController: UIViewController {
 
     // Reset game view - wager to 0, hide wagers, hit/stand, show deal button, clear stack views
     func resetView() {
-        wagerLabel.text = "Wager: 0"
+        wagerStackViewLabel.text = "Wager: 0"
         for cardView in playerCardStackView.arrangedSubviews as [UIView] {
             playerCardStackView.removeArrangedSubview(cardView)
             cardView.removeFromSuperview()
@@ -302,7 +310,6 @@ class ViewController: UIViewController {
         dealButton.isHidden = true
         hitButton.isHidden = true
         standButton.isHidden = true
-        wagerStackViewLabel.isHidden = false
         wagerButtonsStackView.isHidden = false
         newGameButton.isHidden = true
     }
@@ -312,16 +319,15 @@ class ViewController: UIViewController {
         switch (result) {
         case "win":
             player.chipCount += 2 * currentWager
-        
-        case "push":
-            player.chipCount += currentWager
         case "playerBlackjack":
-            player.chipCount += currentWager
-            actionStateLabel.text = "Blackjack!"
+            player.chipCount += 2 * currentWager
+            actionStateLabel.text = "Blackjack! You win \(currentWager * 2) chips!"
             print("Player hit 21 on flop")
         case "dealerBlackjack":
             actionStateLabel.text = "Dealer hit blackjack! Unlucky!"
             print("dealer hit 21 on flop")
+        case "push":
+            player.chipCount += currentWager
         default:
             print("loss")
         }
@@ -366,7 +372,7 @@ class ViewController: UIViewController {
         updateChipCount()
     }
     
-    // MARK: Player methods
+    // MARK: Chip count & player statistic methods
     private func updateChipCount() {
         let chipCount = player.chipCount
         let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(chipCount, toFile: Player.ArchiveURL.path)

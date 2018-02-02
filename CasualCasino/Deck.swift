@@ -15,7 +15,7 @@ class Deck {
     
     var deck: [Card]
     
-    // Create a new, unshuffled deck
+    // Create a new, un-shuffled deck
     init() {
         var deck: [Card] = []
         // New deck
@@ -24,11 +24,11 @@ class Deck {
                 deck.append(Card(suit: suit, cardValue: index + 2))
             }
         }
-        deck.shuffle()
+        //deck.shuffle()
         self.deck = deck
     }
     
-    // Init deck with card amount equivalent to several decks
+    // Init deck with amount of cards equivalent to n decks
     init(numDecks: Int) {
         var deck: [Card] = []
         for _ in 0..<numDecks {
@@ -40,5 +40,14 @@ class Deck {
         }
         deck.shuffle()
         self.deck = deck
+    }
+    
+    // Methods
+    func deal() -> Card {
+        return self.deck.removeLast()
+    }
+    
+    func shuffleDeck() {
+        self.deck.shuffle()
     }
 }

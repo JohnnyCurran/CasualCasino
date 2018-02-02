@@ -15,6 +15,7 @@
 		B2355BEC1F914C64002A6CAB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2355BEA1F914C64002A6CAB /* LaunchScreen.storyboard */; };
 		B252C5B31F97A9E0008E614F /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = B252C5B21F97A9E0008E614F /* Card.swift */; };
 		B278FF371FF437160094AFE5 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = B278FF361FF437160094AFE5 /* Player.swift */; };
+		B28D89AA1FFD7C6000122441 /* PlayerStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28D89A91FFD7C6000122441 /* PlayerStatistics.swift */; };
 		B2A83C701FDA337A006F7EAA /* Hand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A83C6F1FDA337A006F7EAA /* Hand.swift */; };
 		B2A83C721FDA39B7006F7EAA /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A83C711FDA39B7006F7EAA /* Deck.swift */; };
 		B2F119DE1FF5D68300019515 /* ShuffleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F119DD1FF5D68300019515 /* ShuffleExtension.swift */; };
@@ -31,6 +32,7 @@
 		B2355BED1F914C64002A6CAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B252C5B21F97A9E0008E614F /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		B278FF361FF437160094AFE5 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		B28D89A91FFD7C6000122441 /* PlayerStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStatistics.swift; sourceTree = "<group>"; };
 		B2A83C6F1FDA337A006F7EAA /* Hand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hand.swift; sourceTree = "<group>"; };
 		B2A83C711FDA39B7006F7EAA /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		B2F119DD1FF5D68300019515 /* ShuffleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuffleExtension.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				B252C5B21F97A9E0008E614F /* Card.swift */,
 				B2A83C6F1FDA337A006F7EAA /* Hand.swift */,
 				B278FF361FF437160094AFE5 /* Player.swift */,
+				B28D89A91FFD7C6000122441 /* PlayerStatistics.swift */,
 				B2F119DD1FF5D68300019515 /* ShuffleExtension.swift */,
 				B2355BE81F914C64002A6CAB /* Assets.xcassets */,
 				B2355BEA1F914C64002A6CAB /* LaunchScreen.storyboard */,
@@ -154,6 +157,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B28D89AA1FFD7C6000122441 /* PlayerStatistics.swift in Sources */,
 				B2A83C721FDA39B7006F7EAA /* Deck.swift in Sources */,
 				B2355BE11F914C64002A6CAB /* ViewController.swift in Sources */,
 				B2A83C701FDA337A006F7EAA /* Hand.swift in Sources */,

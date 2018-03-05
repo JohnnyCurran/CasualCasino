@@ -27,6 +27,24 @@ class Hand: UIStackView {
         }
     }
     
+    var highestAllowedValue: Int {
+        get {
+            let (lowVal, highVal) = self.handValue
+            if (highVal > 21) {
+                return lowVal
+            }
+            else {
+                return highVal
+            }
+        }
+    }
+    
+    var isSoft: Bool {
+        get {
+            return numAces > 0
+        }
+    }
+
     var numAces: Int {
         get {
             var aceCount: Int = 0
@@ -39,6 +57,18 @@ class Hand: UIStackView {
         }
     }
     
+    var isBusted: Bool {
+        get {
+            let (lowSum, _) = self.handValue
+            if (lowSum > 21) {
+                return true
+            }
+            else {
+                return false
+            }
+        }
+    }
+
     override init(frame: CGRect) {
         self.cards = []
         super.init(frame: frame)

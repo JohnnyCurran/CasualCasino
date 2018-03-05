@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B227DFA82047609B0032827E /* Delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B227DFA72047609B0032827E /* Delay.swift */; };
+		B228D4E62040B17000CAF2DA /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = B228D4E52040B17000CAF2DA /* Game.swift */; };
+		B228D4FA2040EF2400CAF2DA /* CasualCasinoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B228D4F92040EF2400CAF2DA /* CasualCasinoTests.swift */; };
 		B2355BDF1F914C64002A6CAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2355BDE1F914C64002A6CAB /* AppDelegate.swift */; };
 		B2355BE11F914C64002A6CAB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2355BE01F914C64002A6CAB /* ViewController.swift */; };
 		B2355BE41F914C64002A6CAB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2355BE21F914C64002A6CAB /* Main.storyboard */; };
@@ -21,7 +24,22 @@
 		B2F119DE1FF5D68300019515 /* ShuffleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F119DD1FF5D68300019515 /* ShuffleExtension.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		B228D4F42040EEDC00CAF2DA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B2355BD31F914C64002A6CAB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B2355BDA1F914C64002A6CAB;
+			remoteInfo = CasualCasino;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		B227DFA72047609B0032827E /* Delay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delay.swift; sourceTree = "<group>"; };
+		B228D4E52040B17000CAF2DA /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		B228D4EF2040EEDC00CAF2DA /* CasualCasinoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CasualCasinoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B228D4F32040EEDC00CAF2DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B228D4F92040EF2400CAF2DA /* CasualCasinoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CasualCasinoTests.swift; path = ../../../../.Trash/CasualCasinoTests.swift; sourceTree = "<group>"; };
 		B2355BDB1F914C64002A6CAB /* CasualCasino.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CasualCasino.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2355BDE1F914C64002A6CAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2355BE01F914C64002A6CAB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -39,6 +57,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B228D4EC2040EEDC00CAF2DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B2355BD81F914C64002A6CAB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -49,10 +74,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B227DFA6204760860032827E /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				B2F119DD1FF5D68300019515 /* ShuffleExtension.swift */,
+				B227DFA72047609B0032827E /* Delay.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		B228D4E32040B06500CAF2DA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B2A83C711FDA39B7006F7EAA /* Deck.swift */,
+				B252C5B21F97A9E0008E614F /* Card.swift */,
+				B2A83C6F1FDA337A006F7EAA /* Hand.swift */,
+				B278FF361FF437160094AFE5 /* Player.swift */,
+				B28D89A91FFD7C6000122441 /* PlayerStatistics.swift */,
+				B228D4E52040B17000CAF2DA /* Game.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B228D4E42040B13000CAF2DA /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		B228D4F02040EEDC00CAF2DA /* CasualCasinoTests */ = {
+			isa = PBXGroup;
+			children = (
+				B228D4F92040EF2400CAF2DA /* CasualCasinoTests.swift */,
+				B228D4F32040EEDC00CAF2DA /* Info.plist */,
+			);
+			path = CasualCasinoTests;
+			sourceTree = "<group>";
+		};
 		B2355BD21F914C64002A6CAB = {
 			isa = PBXGroup;
 			children = (
 				B2355BDD1F914C64002A6CAB /* CasualCasino */,
+				B228D4F02040EEDC00CAF2DA /* CasualCasinoTests */,
 				B2355BDC1F914C64002A6CAB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				B2355BDB1F914C64002A6CAB /* CasualCasino.app */,
+				B228D4EF2040EEDC00CAF2DA /* CasualCasinoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -68,15 +133,12 @@
 		B2355BDD1F914C64002A6CAB /* CasualCasino */ = {
 			isa = PBXGroup;
 			children = (
+				B227DFA6204760860032827E /* Helpers */,
+				B228D4E42040B13000CAF2DA /* ViewModels */,
+				B228D4E32040B06500CAF2DA /* Models */,
 				B2355BDE1F914C64002A6CAB /* AppDelegate.swift */,
 				B2355BE01F914C64002A6CAB /* ViewController.swift */,
-				B2A83C711FDA39B7006F7EAA /* Deck.swift */,
 				B2355BE21F914C64002A6CAB /* Main.storyboard */,
-				B252C5B21F97A9E0008E614F /* Card.swift */,
-				B2A83C6F1FDA337A006F7EAA /* Hand.swift */,
-				B278FF361FF437160094AFE5 /* Player.swift */,
-				B28D89A91FFD7C6000122441 /* PlayerStatistics.swift */,
-				B2F119DD1FF5D68300019515 /* ShuffleExtension.swift */,
 				B2355BE81F914C64002A6CAB /* Assets.xcassets */,
 				B2355BEA1F914C64002A6CAB /* LaunchScreen.storyboard */,
 				B2355BED1F914C64002A6CAB /* Info.plist */,
@@ -88,6 +150,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		B228D4EE2040EEDC00CAF2DA /* CasualCasinoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B228D4F62040EEDC00CAF2DA /* Build configuration list for PBXNativeTarget "CasualCasinoTests" */;
+			buildPhases = (
+				B228D4EB2040EEDC00CAF2DA /* Sources */,
+				B228D4EC2040EEDC00CAF2DA /* Frameworks */,
+				B228D4ED2040EEDC00CAF2DA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B228D4F52040EEDC00CAF2DA /* PBXTargetDependency */,
+			);
+			name = CasualCasinoTests;
+			productName = CasualCasinoTests;
+			productReference = B228D4EF2040EEDC00CAF2DA /* CasualCasinoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		B2355BDA1F914C64002A6CAB /* CasualCasino */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B2355BF01F914C64002A6CAB /* Build configuration list for PBXNativeTarget "CasualCasino" */;
@@ -111,10 +191,16 @@
 		B2355BD31F914C64002A6CAB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0900;
+				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Johnny Curran";
 				TargetAttributes = {
+					B228D4EE2040EEDC00CAF2DA = {
+						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
+						ProvisioningStyle = Automatic;
+						TestTargetID = B2355BDA1F914C64002A6CAB;
+					};
 					B2355BDA1F914C64002A6CAB = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
@@ -135,11 +221,19 @@
 			projectRoot = "";
 			targets = (
 				B2355BDA1F914C64002A6CAB /* CasualCasino */,
+				B228D4EE2040EEDC00CAF2DA /* CasualCasinoTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		B228D4ED2040EEDC00CAF2DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B2355BD91F914C64002A6CAB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -153,11 +247,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		B228D4EB2040EEDC00CAF2DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B228D4FA2040EF2400CAF2DA /* CasualCasinoTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B2355BD71F914C64002A6CAB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B227DFA82047609B0032827E /* Delay.swift in Sources */,
 				B28D89AA1FFD7C6000122441 /* PlayerStatistics.swift in Sources */,
+				B228D4E62040B17000CAF2DA /* Game.swift in Sources */,
 				B2A83C721FDA39B7006F7EAA /* Deck.swift in Sources */,
 				B2355BE11F914C64002A6CAB /* ViewController.swift in Sources */,
 				B2A83C701FDA337A006F7EAA /* Hand.swift in Sources */,
@@ -170,6 +274,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B228D4F52040EEDC00CAF2DA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B2355BDA1F914C64002A6CAB /* CasualCasino */;
+			targetProxy = B228D4F42040EEDC00CAF2DA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B2355BE21F914C64002A6CAB /* Main.storyboard */ = {
@@ -191,6 +303,43 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		B228D4F72040EEDC00CAF2DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UWSXFAHZ4U;
+				INFOPLIST_FILE = CasualCasinoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.johncurran.CasualCasinoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CasualCasino.app/CasualCasino";
+			};
+			name = Debug;
+		};
+		B228D4F82040EEDC00CAF2DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UWSXFAHZ4U;
+				INFOPLIST_FILE = CasualCasinoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.johncurran.CasualCasinoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CasualCasino.app/CasualCasino";
+			};
+			name = Release;
+		};
 		B2355BEE1F914C64002A6CAB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -333,6 +482,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		B228D4F62040EEDC00CAF2DA /* Build configuration list for PBXNativeTarget "CasualCasinoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B228D4F72040EEDC00CAF2DA /* Debug */,
+				B228D4F82040EEDC00CAF2DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B2355BD61F914C64002A6CAB /* Build configuration list for PBXProject "CasualCasino" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

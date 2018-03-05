@@ -7,8 +7,8 @@
 //
 
 import Foundation
-
-struct PlayerStatistics: Codable {
+/*
+Struct PlayerStatistics: Codable{
     var wins: Int
     var losses: Int
     var pushes: Int
@@ -20,20 +20,7 @@ struct PlayerStatistics: Codable {
     var gamesPlayed: Int
     var numberOfBlackjacks: Int
     var highestWager: UInt64
+    var highestChipsHeld: UInt64 // Greatest number of chips player has held at any given time
     
-    /*
-    enum CodingKeys: String, CodingKey {
-        case wins
-        case losses
-        case pushes
-        case winningPercentage
-        case refills
-        case totalChipsWon
-        case totalChipsLost
-        case totalChipsWagered
-        case gamesPlayed
-        case numberOfBlackjacks
-        case highestWager
-    }
-    */
 }
+*/

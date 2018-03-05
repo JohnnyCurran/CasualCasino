@@ -11,7 +11,8 @@ import Foundation
 class Card: NSObject {
     // MARK: Properties
     var suit: String
-    
+
+
     // Card type: 2 - 14 (2 through Ace)
     var cardValue: Int
     var numericValue: Int {
@@ -48,9 +49,24 @@ class Card: NSObject {
         }
     }
     
-    init(suit: String, cardValue: Int) {
-        self.suit = suit
+    init?(cardValue: Int) {
+        // card value must be between 2 and 14 (2 through Ace)
+        guard (cardValue >= 2 && cardValue <= 14) else {
+            return nil
+        }
+        self.suit = "Hearts"
         self.cardValue = cardValue
     }
     
+    init?(suit: String, cardValue: Int) {
+        // card value must be between 2 and 14 (2 through Ace)
+        guard (cardValue >= 2 && cardValue <= 14) else {
+            return nil
+        }
+        guard !suit.isEmpty else {
+            return nil
+        }
+        self.suit = suit
+        self.cardValue = cardValue
+    }
 }

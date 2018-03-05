@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="agk-v2-u1C">
-                                <rect key="frame" x="106" y="318" width="46" height="30"/>
+                                <rect key="frame" x="72" y="318" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Hit">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="displayP3"/>
@@ -43,7 +43,7 @@
                                 <color key="highlightedColor" red="0.41145865821369931" green="1" blue="0.33966661480960458" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uyC-Fo-NhL">
-                                <rect key="frame" x="164" y="318" width="46" height="30"/>
+                                <rect key="frame" x="162" y="318" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Deal">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="displayP3"/>
@@ -151,7 +151,7 @@
                                 <color key="highlightedColor" red="0.41145865821369931" green="1" blue="0.33966661480960458" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="clR-Sr-Gt9">
-                                <rect key="frame" x="218" y="318" width="46" height="30"/>
+                                <rect key="frame" x="126" y="318" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Stand">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="displayP3"/>
@@ -181,6 +181,14 @@
                                 <rect key="frame" x="16" y="105" width="343" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </stackView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S2W-jX-R61">
+                                <rect key="frame" x="210" y="318" width="92" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Double Down"/>
+                                <connections>
+                                    <action selector="doubleDown:" destination="BYZ-38-t0r" eventType="touchUpInside" id="B2c-Lz-P22"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.25928524375573853" green="0.6301611075129534" blue="0.21404469017359617" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
@@ -198,6 +206,7 @@
                         <outlet property="dealButton" destination="uyC-Fo-NhL" id="n6V-2s-wEM"/>
                         <outlet property="dealerCardStackView" destination="022-gU-6tU" id="XFd-tg-dA2"/>
                         <outlet property="dealerLabel" destination="Quu-Tb-JBH" id="oJh-eE-UJT"/>
+                        <outlet property="doubleDownButton" destination="S2W-jX-R61" id="ULD-mo-gPe"/>
                         <outlet property="handValueLabel" destination="g4n-BA-hIi" id="Otw-ma-pGs"/>
                         <outlet property="hitButton" destination="agk-v2-u1C" id="fi7-Qi-vZR"/>
                         <outlet property="newGameButton" destination="mfp-mf-ItA" id="Dmt-YS-gvI"/>
@@ -217,4 +226,5 @@
             <point key="canvasLocation" x="136.80000000000001" y="121.88905547226388"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
 </document>

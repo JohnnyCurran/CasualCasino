@@ -13,7 +13,7 @@ class Deck {
     static var suits: [String] = ["Hearts", "Clubs", "Diamonds", "Spades"]
     static var cards: [String] = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
     
-    var deck: [Card]
+    var cards: [Card]
     
     // Create a new, un-shuffled deck
     init() {
@@ -21,11 +21,11 @@ class Deck {
         // New deck
         for (index, _) in Deck.cards.enumerated() {
             for suit in Deck.suits {
-                deck.append(Card(suit: suit, cardValue: index + 2))
+                deck.append(Card(suit: suit, cardValue: index + 2)!)
             }
         }
-        //deck.shuffle()
-        self.deck = deck
+        deck.shuffle()
+        self.cards = deck
     }
     
     // Init deck with amount of cards equivalent to n decks
@@ -34,20 +34,25 @@ class Deck {
         for _ in 0..<numDecks {
             for (index, _) in Deck.cards.enumerated() {
                 for suit in Deck.suits {
-                    deck.append(Card(suit: suit, cardValue: index + 2))
+                    let newCard = Card(suit: suit, cardValue: index + 2)
+                    deck.append(newCard!)
                 }
             }
         }
         deck.shuffle()
-        self.deck = deck
+        self.cards = deck
     }
     
     // Methods
     func deal() -> Card {
-        return self.deck.removeLast()
+        return self.cards.removeLast()
+    }
+    
+    func dealBlackJack() -> [Card] {
+        return [Card(cardValue: 14)!, Card(cardValue: 10)!]
     }
     
     func shuffleDeck() {
-        self.deck.shuffle()
+        self.cards.shuffle()
     }
 }

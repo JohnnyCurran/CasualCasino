@@ -6,12 +6,12 @@
 //  Copyright © 2017 Johnny Curran. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class Card: NSObject {
     // MARK: Properties
     var suit: String
-
+    var cardImage: UIImage?
 
     // Card type: 2 - 14 (2 through Ace)
     var cardValue: Int
@@ -48,7 +48,6 @@ class Card: NSObject {
             }
         }
     }
-    
     init?(cardValue: Int) {
         // card value must be between 2 and 14 (2 through Ace)
         guard (cardValue >= 2 && cardValue <= 14) else {

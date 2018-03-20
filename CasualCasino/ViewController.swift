@@ -26,7 +26,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var hitButton: UIButton!
     @IBOutlet weak var standButton: UIButton!
     @IBOutlet weak var dealButton: UIButton!
-    @IBOutlet weak var doubleDownButton: UIButton!
     @IBOutlet weak var actionStateLabel: UILabel!
     @IBOutlet weak var wagerFive: UIButton!
     @IBOutlet weak var wagerTen: UIButton!
@@ -86,29 +85,12 @@ class ViewController: UIViewController {
         let cardDealt = game.dealCard(to: game.playerHand)
         sendCardToView(card: cardDealt, stackView: self.playerCardStackView)
 
-        let (lowSum, highSum) = game.playerHand.handValue
-        if (game.playerHand.numAces > 0 && highSum <= 21) {
-            handValueLabel.text = "Your hand: \(lowSum) or \(highSum)"
-        }
-        else if (game.playerHand.numAces > 0 && highSum > 21) {
-            handValueLabel.text = "Your hand: \(lowSum)"
-        }
-        else if (game.playerHand.numAces == 0) {
-            handValueLabel.text = "Your hand: \(highSum)"
-        }
-        else {
-            os_log("Something has gone horribly wrong. Ace counts & hand value labels failing.", log: OSLog.default, type: .error)
-        }
-        if (game.playerHand.isBusted) {
-            // player busted!
-            endGame(result: Game.GameResult.PlayerBust)
-        }
+        updatePlayerHandValueLabel()
     }
 
     // Player stands
     @IBAction func playerStand(_ sender: UIButton) {
         hitButton.isHidden = true
-        doubleDownButton.isHidden = true
         // Deal out cards and update view
         let dealerCardsDealt = game.playerStand()
         for card in dealerCardsDealt {
@@ -120,17 +102,7 @@ class ViewController: UIViewController {
         }
         endGame(result: gameResult)
     }
-    
-    // TODO: Send card to view, delay for 0.5 seconds, and reveal new card
-    @IBAction func doubleDown(_ sender: UIButton) {
-        let card = game.doubleDown()
-        wagerStackViewLabel.text = "Wager: \(game.wagerAmount)"
-        sendCardToView(card: card, stackView: self.playerCardStackView, hidden: true)
-        delay(bySeconds: 0.5) {
-            // Un hide card
-        }
-    }
-    
+
     // Start the game
     @IBAction func dealFlop(_ sender: UIButton) {
         // Deal first 2 cards
@@ -144,23 +116,13 @@ class ViewController: UIViewController {
         dealButton.isHidden = true
         hitButton.isHidden = false
         standButton.isHidden = false
-        doubleDownButton.isHidden = false
         wagerButtonsStackView.isHidden = true
         
         // Update state
         actionStateLabel.text = "Hit or Stand"
         let dealerShows = game.dealerHand.cards[0].numericValue
         dealerLabel.text = "Dealer shows \(dealerShows)"
-        let (lowSum, highSum) = game.playerHand.handValue
-        if (game.playerHand.numAces > 0 && highSum <= 21) {
-            handValueLabel.text = "Your hand: \(lowSum) or \(highSum)"
-        }
-        else if (game.playerHand.numAces > 0 && highSum > 21) {
-            handValueLabel.text = "Your hand: \(lowSum)"
-        }
-        else if (game.playerHand.numAces == 0) {
-            handValueLabel.text = "Your hand: \(highSum)"
-        }
+        updatePlayerHandValueLabel()
 
         let isBlackjack = game.isBlackjack()
         if (isBlackjack != nil) {
@@ -188,13 +150,12 @@ class ViewController: UIViewController {
         dealButton.isHidden = true
         hitButton.isHidden = true
         standButton.isHidden = true
-        doubleDownButton.isHidden = true
         wagerButtonsStackView.isHidden = false
         newGameButton.isHidden = true
     }
 
     // Replace hidden card with proper value
-    func showHiddenCard() {
+    private func showHiddenCard() {
         // Replace arranged subview with new subview
         let unhiddenCard = game.dealerHand.cards[1]
         let unhiddenCardView = createCardStackView(card: unhiddenCard)
@@ -204,36 +165,42 @@ class ViewController: UIViewController {
         dealerCardStackView.addArrangedSubview(unhiddenCardView)
     }
     
-    // Create a stack view from a card object
-    func createCardStackView(card: Card, hidden: Bool = false) -> UIStackView {
-        let cardView = UIStackView()
-        cardView.axis = .vertical
-        cardView.alignment = .center
-        cardView.distribution = .fillProportionally
-        cardView.contentMode = .center
-        
-        let cardValue = UILabel()
-        cardValue.text = hidden == false ? card.displayValue : "??"
-        cardValue.textAlignment = .center
-        
-        let cardSuit = UILabel()
-        cardSuit.text = hidden == false ? card.suit : "??"
-        cardSuit.textAlignment = .center
-        
-        cardView.addArrangedSubview(cardValue)
-        cardView.addArrangedSubview(cardSuit)
-        
-        return cardView
+    private func updatePlayerHandValueLabel() {
+        let (lowSum, highSum) = game.playerHand.handValue
+        if (game.playerHand.numAces > 0 && highSum <= 21) {
+            handValueLabel.text = "Your hand: \(lowSum) or \(highSum)"
+        }
+        else if (game.playerHand.numAces > 0 && highSum > 21) {
+            handValueLabel.text = "Your hand: \(lowSum)"
+        }
+        else if (game.playerHand.numAces == 0) {
+            handValueLabel.text = "Your hand: \(highSum)"
+        }
+        else {
+            os_log("Something has gone horribly wrong. Ace counts & hand value labels failing.", log: OSLog.default, type: .error)
+        }
+        if (game.playerHand.isBusted) {
+            // player busted!
+            endGame(result: Game.GameResult.PlayerBust)
+        }
     }
     
-    func sendCardToView(card: Card, stackView: UIStackView, hidden: Bool = false) {
+    // Create a stack view from a card object
+    private func createCardStackView(card: Card, hidden: Bool = false) -> UIImageView {
+        let cardHelper = CardHelper()
+        let cardImgView = cardHelper.getImageForCard(card: card, hidden: hidden)
+        
+        return cardImgView
+    }
+    
+    private func sendCardToView(card: Card, stackView: UIStackView, hidden: Bool = false) {
         let cardView = createCardStackView(card: card, hidden: hidden)
         UIView.animate(withDuration: 0.3) {
             stackView.addArrangedSubview(cardView)
         }
     }
 
-    func endGame(result: Game.GameResult) {
+    private func endGame(result: Game.GameResult) {
         switch(result) {
         // Player Results
         case .PlayerVictory:
@@ -287,52 +254,7 @@ class ViewController: UIViewController {
             os_log("Chip count failed to save...", log: OSLog.default, type: .error)
         }
     }
-    
-    private func savePlayer() {
-        /*
-        let chipCount = player.chipCount
-        let wins = player.wins
-        let losses = player.losses
-        let pushes = player.pushes
-        let winningPercentage = player.winningPercentage
-        let refills = player.refills
-        let totalChipsWon = player.totalChipsWon
-        let totalChipsLost = player.totalChipsLost
-        let totalChipsWagered = player.totalChipsWagered
-        let gamesPlayed = player.gamesPlayed
-        let numberOfBlackjacks = player.numberOfBlackjacks
-        let highestWager = player.highestWager
-        let highestChipsHeld = player.highestChipsHeld
-         */
-        let player = game.player
-        /*
-        NSKeyedArchiver.archiveRootObject(chipCount, toFile: Player.ArchiveURL.path)
-        NSKeyedArchiver.archiveRootObject(wins, toFile: Player.ArchiveURL.path)
-        NSKeyedArchiver.archiveRootObject(losses, toFile: Player.ArchiveURL.path)
-        NSKeyedArchiver.archiveRootObject(pushes, toFile: Player.ArchiveURL.path)
-        NSKeyedArchiver.archiveRootObject(winningPercentage, toFile: Player.ArchiveURL.path)
-        NSKeyedArchiver.archiveRootObject(refills, toFile: Player.ArchiveURL.path)
-        NSKeyedArchiver.archiveRootObject(totalChipsWon, toFile: Player.ArchiveURL.path)
-        NSKeyedArchiver.archiveRootObject(totalChipsLost, toFile: Player.ArchiveURL.path)
-        NSKeyedArchiver.archiveRootObject(totalChipsWagered, toFile: Player.ArchiveURL.path)
-        NSKeyedArchiver.archiveRootObject(gamesPlayed, toFile: Player.ArchiveURL.path)
-        NSKeyedArchiver.archiveRootObject(numberOfBlackjacks, toFile: Player.ArchiveURL.path)
-        NSKeyedArchiver.archiveRootObject(highestWager, toFile: Player.ArchiveURL.path)
-        NSKeyedArchiver.archiveRootObject(highestChipsHeld, toFile: Player.ArchiveURL.path)
-         */
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(player, toFile: Player.ArchiveURL.path)
-        if (isSuccessfulSave) {
-            print("Saved player successfully!")
-        }
-        else {
-            print("Failed to save player!")
-        }
-    }
-    
-    private func loadPlayer() -> Player? {
-        return NSKeyedUnarchiver.unarchiveObject(withFile: Player.ArchiveURL.path) as? Player
-    }
-    
+
     private func loadChipCount() -> UInt64? {
         return NSKeyedUnarchiver.unarchiveObject(withFile: Player.ArchiveURL.path) as? UInt64
     }

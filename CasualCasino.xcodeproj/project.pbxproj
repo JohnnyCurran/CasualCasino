@@ -21,6 +21,7 @@
 		B28D89AA1FFD7C6000122441 /* PlayerStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28D89A91FFD7C6000122441 /* PlayerStatistics.swift */; };
 		B2A83C701FDA337A006F7EAA /* Hand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A83C6F1FDA337A006F7EAA /* Hand.swift */; };
 		B2A83C721FDA39B7006F7EAA /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A83C711FDA39B7006F7EAA /* Deck.swift */; };
+		B2A9D424206086E40083CEC9 /* CardHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A9D423206086E40083CEC9 /* CardHelper.swift */; };
 		B2F119DE1FF5D68300019515 /* ShuffleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F119DD1FF5D68300019515 /* ShuffleExtension.swift */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +54,7 @@
 		B28D89A91FFD7C6000122441 /* PlayerStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStatistics.swift; sourceTree = "<group>"; };
 		B2A83C6F1FDA337A006F7EAA /* Hand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hand.swift; sourceTree = "<group>"; };
 		B2A83C711FDA39B7006F7EAA /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
+		B2A9D423206086E40083CEC9 /* CardHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHelper.swift; sourceTree = "<group>"; };
 		B2F119DD1FF5D68300019515 /* ShuffleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuffleExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,6 +81,7 @@
 			children = (
 				B2F119DD1FF5D68300019515 /* ShuffleExtension.swift */,
 				B227DFA72047609B0032827E /* Delay.swift */,
+				B2A9D423206086E40083CEC9 /* CardHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 				B228D4E62040B17000CAF2DA /* Game.swift in Sources */,
 				B2A83C721FDA39B7006F7EAA /* Deck.swift in Sources */,
 				B2355BE11F914C64002A6CAB /* ViewController.swift in Sources */,
+				B2A9D424206086E40083CEC9 /* CardHelper.swift in Sources */,
 				B2A83C701FDA337A006F7EAA /* Hand.swift in Sources */,
 				B2F119DE1FF5D68300019515 /* ShuffleExtension.swift in Sources */,
 				B278FF371FF437160094AFE5 /* Player.swift in Sources */,
